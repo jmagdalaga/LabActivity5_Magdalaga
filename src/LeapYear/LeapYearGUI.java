@@ -29,7 +29,7 @@ public class LeapYearGUI extends JFrame{
                 String message = LeapYearChecker ? "Leap year" : "Not a leap year";
                 JOptionPane.showMessageDialog(null, message);
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Invalid year", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
