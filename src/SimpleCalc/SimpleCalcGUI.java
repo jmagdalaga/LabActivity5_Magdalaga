@@ -15,7 +15,7 @@ public class SimpleCalcGUI extends JFrame {
         setTitle("Simple Calculator");
 
         btnCompute.addActionListener((event) -> {
-
+            try {
                 double num1 = Double.parseDouble(tfNumber1.getText());
                 double num2 = Double.parseDouble(tfNumber2.getText());
                 String operation = (String) cbOperations.getSelectedItem();
@@ -27,10 +27,20 @@ public class SimpleCalcGUI extends JFrame {
                     case "+" -> result = num1 + num2;
                     case "-" -> result = num1 - num2;
                     case "*" -> result = num1 * num2;
-                    case "/" -> result = num1 / num2;
+                    case "/" -> {
+                        if (num2 == 0) {
+                            throw new ArithmeticException("Divisor cannot be 0");
+                        }
+                        result = num1 / num2;
+                    }
                 }
 
-            lblResult.setText(Double.toString(result));
+                lblResult.setText(Double.toString(result));
+            }catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(SimpleCalcGUI.this, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+            }catch (ArithmeticException ex){
+                JOptionPane.showMessageDialog(SimpleCalcGUI.this, "Cannot Divide by Zero!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
     public static void main(String[] args) {
@@ -39,5 +49,6 @@ public class SimpleCalcGUI extends JFrame {
         calculator.setSize(600, 300);
         calculator.setVisible(true);
         calculator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 }
