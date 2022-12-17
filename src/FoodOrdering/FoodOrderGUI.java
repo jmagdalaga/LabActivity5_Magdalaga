@@ -27,7 +27,7 @@ public class FoodOrderGUI extends JFrame{
         setTitle("Food Ordering System");
 
         btnOrder.addActionListener((event) -> {
-
+            try {
                 double total = 0;
                 if (cPizza.isSelected())
                     total += pizzaprice;
@@ -47,8 +47,14 @@ public class FoodOrderGUI extends JFrame{
                     total -= total * 0.1;
                 else if (rb15.isSelected())
                     total -= total * 0.15;
-
+                if (total == 0) {
+                    throw new IllegalArgumentException("Total cannot be 0");
+                }
             JOptionPane.showMessageDialog(panel1,"The total price is Php " + String.format("%.2f", total));
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(FoodOrderGUI.this, "You did not choose a food!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
     public static void main(String[] args){
